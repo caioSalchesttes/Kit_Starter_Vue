@@ -23,11 +23,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (localStorage.getItem("token")) {
-      auth.get('/medico').then((response) => {
-        next();
-      }).catch((error) => {
-        next("/login");
-      });
+      next();
     } else {
       next("/login");
     }

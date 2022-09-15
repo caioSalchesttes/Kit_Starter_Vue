@@ -1,6 +1,7 @@
 import { useStorage } from '@vueuse/core'
 import { defineStore } from "pinia";
 import { guest } from "@/services/api";
+import router from "@/router";
 
 export const useAuthStore = defineStore({
     id: 'auth',
@@ -23,6 +24,8 @@ export const useAuthStore = defineStore({
                 token: '',
                 avatar: '',
             })
+
+            router.push({ name: 'login' })
         },
 
         async login(form) {
@@ -36,6 +39,8 @@ export const useAuthStore = defineStore({
             this.$patch({
                 token: userData.access_token,
             })
+
+            router.push({ name: 'home' })
         },
     },
 })

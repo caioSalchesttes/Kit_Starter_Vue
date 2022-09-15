@@ -279,34 +279,10 @@
                   me-1
                 "
               ></i>
-              Profile</a
-            >
-            <a class="dropdown-item" href="#"
-              ><i
-                class="mdi mdi-wallet font-size-17 text-muted align-middle me-1"
-              ></i>
-              My Wallet</a
-            >
-            <a class="dropdown-item d-flex align-items-center" href="#"
-              ><i
-                class="mdi mdi-cog font-size-17 text-muted align-middle me-1"
-              ></i>
-              Settings<span class="badge bg-success ms-auto">11</span></a
-            >
-            <a class="dropdown-item" href="#"
-              ><i
-                class="
-                  mdi mdi-lock-open-outline
-                  font-size-17
-                  text-muted
-                  align-middle
-                  me-1
-                "
-              ></i>
-              Lock screen</a
+              Meu perfil</a
             >
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-danger" href="#"
+            <button @click.prevent="logout" class="dropdown-item text-danger"
               ><i
                 class="
                   mdi mdi-power
@@ -317,7 +293,7 @@
                   text-danger
                 "
               ></i>
-              Logout</a
+              Sair</button
             >
           </div>
         </div>
@@ -327,7 +303,30 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "@/stores/auth";
+
 const toggleMenu = () => {
-  const body=document.body;var size=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;size<=992?(body.classList.contains("vertical-collpsed")&&body.classList.remove("vertical-collpsed"),body.classList.contains("sidebar-enable")?(body.classList.remove("sidebar-enable"),body.classList.add("enlarged")):(body.classList.add("sidebar-enable"),body.classList.remove("enlarged"))):body.classList.contains("vertical-collpsed")?(body.classList.remove("vertical-collpsed"),body.classList.remove("sidebar-enable")):(body.classList.add("sidebar-enable"),body.classList.add("vertical-collpsed"));
+  const body = document.body;
+  var size =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
+  size <= 992
+    ? (body.classList.contains("vertical-collpsed") &&
+        body.classList.remove("vertical-collpsed"),
+      body.classList.contains("sidebar-enable")
+        ? (body.classList.remove("sidebar-enable"),
+          body.classList.add("enlarged"))
+        : (body.classList.add("sidebar-enable"),
+          body.classList.remove("enlarged")))
+    : body.classList.contains("vertical-collpsed")
+    ? (body.classList.remove("vertical-collpsed"),
+      body.classList.remove("sidebar-enable"))
+    : (body.classList.add("sidebar-enable"),
+      body.classList.add("vertical-collpsed"));
+};
+
+const logout = () => {
+  useAuthStore().logout();
 };
 </script>
