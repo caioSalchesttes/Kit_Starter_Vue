@@ -14,10 +14,16 @@
     "bootstrap": "^5.2.1",
     "jquery": "^3.6.1",
     "metismenu": "^3.0.7",
+    "mosha-vue-toastify": "^1.0.23",
+    "node-snackbar": "^0.1.16",
     "pinia": "^2.0.21",
-    "vee-validate": "^4.6.7",
+    "toastify-js": "^1.12.0",
+    "vee-validate": "^4.6.10",
     "vue": "^3.2.38",
-    "vue-router": "^4.1.5"
+    "vue-loading-overlay": "5.0",
+    "vue-router": "^4.1.5",
+    "vue-toasted": "^1.1.28",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",

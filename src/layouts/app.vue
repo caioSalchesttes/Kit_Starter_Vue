@@ -36,7 +36,7 @@
           <slot />
         </div>
       </div>
-     <FooterPartial />
+      <FooterPartial />
     </div>
   </div>
 </template>

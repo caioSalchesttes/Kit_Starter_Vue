@@ -2,6 +2,11 @@ import { useStorage } from '@vueuse/core'
 import { defineStore } from "pinia";
 import { guest } from "@/services/api";
 import router from "@/router";
+import "toastify-js/src/toastify.css"
+import Toastify from 'toastify-js'
+import { useLoading } from "vue-loading-overlay";
+const $loading = useLoading();
+
 
 export const useAuthStore = defineStore({
     id: 'auth',
@@ -28,12 +33,25 @@ export const useAuthStore = defineStore({
             router.push({ name: 'login' })
         },
 
-        async login(form) {
+        async login(form, ref) {
+
+            const loader = $loading.show({
+                container: ref.value,
+                color: "#2b3a4a",
+                backgroundColor: "#fff",
+                opacity: 0.9,
+            });
+
+
             const userData = await guest.post('/login', {
-                telefone: '65335705221',
+                telefone: '1199999999',
                 password: 'password',
             }).then((response) => {
                 return response.data;
+            }).catch((error) => {
+                loader.hide();
+
+
             });
 
             this.$patch({

@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-8 col-lg-6 col-xl-5">
     <div class="card overflow-hidden">
-      <div class="card-body pt-0">
+      <div class="card-body pt-0" ref="containerLoad">
         <h3 class="text-center mt-5 mb-4">
           <a href="index.html" class="d-block auth-logo">
             <img
@@ -26,25 +26,46 @@
           <p class="text-muted text-center">
             Faça login para continuar para COS.
           </p>
-          <form class="form-horizontal mt-4" @submit.prevent="logar">
+          <Form
+            class="form-horizontal mt-4"
+            :validation-schema="schema"
+            @submit="logar"
+          >
             <div class="mb-3">
               <label for="email">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                id="email"
-                placeholder="Digite o e-mail"
-              />
+              <Field
+                name="email"
+                v-slot="{ field, errors }"
+                v-model="form.email"
+              >
+                <input
+                  type="text"
+                  class="form-control"
+                  v-bind="field"
+                  :class="{ 'is-invalid': errors.length }"
+                  id="email"
+                  placeholder="Digite o e-mail"
+                />
+              </Field>
+              <ErrorMessage class="invalid-feedback" name="email" />
             </div>
             <div class="mb-3">
               <label for="password">Senha</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                autocomplete="on"
-                placeholder="Digite a senha"
-              />
+              <Field
+                name="password"
+                v-slot="{ field, errors }"
+                v-model="form.password"
+              >
+                <input
+                  type="password"
+                  class="form-control"
+                  v-bind="field"
+                  :class="{ 'is-invalid': errors.length }"
+                  id="password"
+                  placeholder="Digite a senha"
+                />
+              </Field>
+              <ErrorMessage class="invalid-feedback" name="password" />
             </div>
             <div class="mb-3 row mt-4">
               <div class="col-6">
@@ -75,7 +96,7 @@
                 >
               </div>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
@@ -96,17 +117,23 @@
 </template>
 
 <script setup>
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
 import { useAuthStore } from "@/stores/auth";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+const containerLoad = ref(null);
 
 const form = reactive({
-  email: "65335705221",
-  password: "password",
-})
+  email: "",
+  password: "",
+});
+
+const schema = yup.object({
+  email: yup.string().email("O e-mail é inválido").required("O e-mail é obrigatório"),
+  password: yup.string().required("A senha é obrigatória"),
+});
 
 const logar = () => {
-  useAuthStore().login(form);
-}
-
-
+  useAuthStore().login(form, containerLoad);
+};
 </script>

@@ -7,8 +7,10 @@ import router from './router'
 import './assets/css/bootstrap.min.css'
 import './assets/css/icons.min.css'
 import './assets/css/app.min.css'
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 import "bootstrap"
+
 
 import * as slimscroll from "./assets/libs/simplebar/simplebar.min.js";
 
